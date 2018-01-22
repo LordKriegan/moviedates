@@ -1,0 +1,70 @@
+<div class="container">
+    <div class="row">
+        <div id="loginForm" class="col-xs-4 col-xs-offset-4">
+            <form role="form">
+                <div class="form-group">
+                    <label for="loginEmail">Email: </label>
+                    <input class="form-control" id="loginEmail" type="text">
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password: </label>
+                    <input class="form-control" id="loginPassword" type="password">
+                </div>
+                <button class="btn btn-primary" id="userLoginBtn" type="submit">Login</button>
+                <button class="btn btn-primary" id="showSignup" type="submit">Sign Up</button>
+            </form>
+        </div>
+        <div id="signUpForm" class="col-xs-4 col-xs-offset-4">
+            <form role="form">
+                <div class="form-group">
+                    <label for="signUpEmail">Email: </label>
+                    <input class="form-control" id="signUpEmail" type="text">
+                </div>
+                <div class="form-group">
+                    <label for="signUpPw">Password: </label>
+                    <input class="form-control" id="signUpPw" type="password">
+                </div>
+                <div class="form-group">
+                    <label for="signUpAge">Age: </label>
+                    <input class="form-control" id="signUpAge" type="number">
+                </div>
+                <div class="form-group">
+                    <label for="signUpDesc">Desc: </label>
+                    <input class="form-control" id="signUpDesc" type="text">
+                </div>
+                <div class="form-group">
+                    <label for="signUpGender">Gender: </label>
+                    <input class="form-control" id="signUpGender" type="text">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary" id="signUpPicture">Select Picure...</button>
+                </div>
+                <button class="btn btn-primary" id="userSignUpBtn" type="submit">Sign Up</button>
+                <button class="btn btn-primary" id="showLogin" type="submit">Login with Existing Account</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.17.1/axios.min.js"></script>
+<script src="https://static.filestackapi.com/v3/filestack.js"></script>
+<script type="text/javascript">
+    var fileUrl;
+    var fsClient = filestack.init('ACoieJZdQTfSQR8IdgchCz');
+    function openPicker() {
+        fsClient.pick({
+            fromSources: ["local_file_system", "facebook", "instagram", "dropbox"],
+            accept: ["image/*"],
+            maxFiles: 1,
+            minFiles: 1
+        }).then(function (response) {
+            // declare this function to handle response
+            if (response.filesFailed.length) {
+                console.error("File Upload Failed");
+            } else {
+                fileUrl = response.filesUploaded[0].url;
+                console.log(fileUrl);
+            }
+        });
+    }
+</script>
+<script src="/assets/js/login.js"></script>
