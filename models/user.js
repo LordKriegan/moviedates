@@ -38,9 +38,6 @@ module.exports = function(sequelize, DataTypes) {
           type: DataTypes.STRING,
           allowNull: false, 
       },
-      movieList: {
-          type: DataTypes.STRING
-      },
       profilePic: {
           type: DataTypes.STRING,
           defaultValue: "/assets/images/defaultUser.png"
@@ -48,6 +45,9 @@ module.exports = function(sequelize, DataTypes) {
   }); 
   User.associate = function(models) {
     models.User.hasMany(models.Movies, {
+        onDelete: "cascade"
+    });
+    models.User.hasMany(models.UserChats, {
         onDelete: "cascade"
     });
   };

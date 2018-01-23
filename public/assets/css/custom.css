@@ -33,4 +33,34 @@
     box-shadow: 10px 5px 5px rgb(133, 132, 132);
 }
 
+#chatRoomBox, #chatList {
+    border-style: double;
+    border-radius: 5%;
+    height: 90vh;
+}
 
+#chatRoomBox {
+    height: 80vh;
+    margin-bottom: 20px;
+}
+
+.chatListItem {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.chatListItem:hover {
+    background-color: #888888;
+    color: #060606;
+}
+
+.chatListPic {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.chatListName {
+    line-height: 50px
+}

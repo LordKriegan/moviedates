@@ -1,8 +1,8 @@
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
     var Movies = sequelize.define("Movies", {
         movieId: {
             type: DataTypes.STRING,
-            allowNull: false 
+            allowNull: false
         },
         moviePoster: {
             type: DataTypes.STRING,
@@ -11,13 +11,13 @@ module.exports = function(sequelize, DataTypes) {
         movieTitle: {
             type: DataTypes.STRING
         }
-    }); 
-    Movies.associate = function(models) {
+    });
+    Movies.associate = function (models) {
         models.Movies.belongsTo(models.User, {
             foreignKey: {
                 allowNull: false
             }
         });
     }
-     return Movies; 
-  };
+    return Movies;
+};

@@ -1,5 +1,17 @@
 var axios = require('axios');
 var models = require('../models');
+var firebase = require('firebase');
+// Initialize Firebase
+var config = {
+    apiKey: process.env.FBAPIKEY,
+    authDomain: process.env.FBAUTHDOMAIN,
+    databaseURL: process.env.FBDATABASEURL,
+    projectId: process.env.FBPROJECTID,
+    storageBucket: process.env.FBSTORAGEBUCKET,
+    messagingSenderId: process.env.FBMESSAGINGSENDERID
+};
+firebase.initializeApp(config);
+fbdb = firebase.database();
 
 module.exports = function (app) {
     app.post("/api/searchmovies", function (req, res) {
@@ -13,7 +25,83 @@ module.exports = function (app) {
                 console.error(error);
             })
     });
-
+    app.post("/api/getchatlist", function (req, res) {
+        models.UserChats.findAll({
+            where: {
+                UserId: req.body.userId
+            }
+        }).then(function(response) {
+            var results = [];
+            var i = 0;
+            function getRecieverName() {
+                if (i < response.length) {
+                    models.User.findOne({
+                        where: {
+                            id: response[i].reciever
+                        }
+                    }).then(function(recursiveResponse) {
+                        if (recursiveResponse) {
+                            results.push({
+                                chatID: response[i].chatID,
+                                reciever: recursiveResponse.email.split("@")[0],
+                                profilePic: recursiveResponse.profilePic
+                            });
+                        }
+                        i++;
+                        getRecieverName();
+                    }).catch(function(error) {
+                        console.error(error);
+                    });
+                } else {
+                    res.json(results);
+                }
+            }
+            getRecieverName();
+        }).catch(function(error) {
+            console.error(error);
+        })
+    });
+    app.post("/api/startnewchat", function (req, res) {
+        models.UserChats.findOne({
+            where: {
+                UserId: req.body.userOne,
+                reciever: req.body.userTwo
+            }
+        }).then(function(response) {
+            console.log(response);
+            if (response) {
+                res.json({success: false, error: "chatroom already exists" }) //chat already exists
+            } else {
+                fbdb
+                    .ref("chatrooms")
+                    .push()
+                    .then(function(snapshot) {
+                        models.UserChats.create({
+                            chatID: snapshot.key,
+                            UserId: req.body.userOne,
+                            reciever: req.body.userTwo
+                        }).then(function(respOne) {
+                            models.UserChats.create({
+                                chatID: snapshot.key,
+                                UserId: req.body.userTwo,
+                                reciever: req.body.userOne
+                            }).then(function(respTwo) {
+                                res.json({success: true})
+                            }).catch(function(error) {
+                                console.error(error);
+                                res.json({success: false})
+                            })
+                        }).catch(function(error) {
+                            console.error(error);
+                            res.json({success: false})
+                        })
+                    });  
+            }
+        }).catch(function(error) {
+            console.error(error);
+            res.json({success: false})
+        })
+    });
     app.post("/api/addusermovie", function (req, res) {
         models.Movies.findOne({
             where: {

@@ -1,0 +1,25 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-3">
+            <div id="chatList">
+                {{!-- list of users goes here --}}
+            </div>
+        </div>
+        <div class="col-xs-9">
+            <div id="chatRoomBox">
+                {{!-- active chat shows here --}}
+            </div>
+            <div id="chatRoomTextBox">
+            <div class="input-group">
+                <input id="textBar" type="text" class="form-control">
+                <span class="input-group-btn">
+                    <button id="textBarBtn" class="btn btn-default" type="button">Send!</button>
+                </span>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.17.1/axios.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+<script src="/assets/js/messages.js"></script>

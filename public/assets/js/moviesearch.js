@@ -93,11 +93,28 @@ window.onload = function () {
             $("#nearbyUsersBox").empty();
             response.data.forEach(function(elem) {
                 console.log("test", elem);
-                var nearbyUser = $("<div class='text-center nearbyUser id='" + elem.userId +"'>");
+                var nearbyUser = $("<div class='text-center nearbyUser' data-userId='" + elem.userId +"'>");
                 $(nearbyUser).append("<img class='nearbyUserPic' src='" + elem.profilePic + "' />");
                 $(nearbyUser).append("<p class='nearbyUserName'>" + elem.email.split("@")[0] + "</p>");
                 $("#nearbyUsersBox").append(nearbyUser);
             });
+        }).catch(function(error) {
+            console.error(error);
+        });
+    });
+
+    $(document).on("click", ".nearbyUser", function() {
+        var thisElem = this;
+        axios({
+            method: "POST",
+            url: "/api/startnewchat",
+            headers: { "Authorization": "Bearer " + loginToken },
+            data: {
+                userOne: JSON.parse(window.atob(loginToken.split('.')[1])).id,
+                userTwo: $(thisElem).attr("data-userId")
+            }
+        }).then(function(response) {
+            console.log(response);
         }).catch(function(error) {
             console.error(error);
         });
