@@ -33,8 +33,6 @@ window.onload = function () {
     }
 
     $(document).on("click", ".chatListItem", function() {
-        /*    background-color: #888888;
-    color: #060606; */
         $("#chatList > .chatListItem").css("background-color", "#060606");
         $("#chatList > .chatListItem").css("color", "#888888");
         $(this).css("background-color", "#888888");
@@ -73,5 +71,5 @@ window.onload = function () {
                 profilePic: JSON.parse(window.atob(loginToken.split('.')[1])).profilePic
             })
         }
-    }) 
+    }); 
 };

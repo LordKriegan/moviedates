@@ -43,17 +43,8 @@ app.use(jwt({
 
 require("./routes/apiRoutes.js")(app);
 
-// app.get("/404", function(req, res) {
-//     res.status(404).render("err404");
-// });
-
-// //catch all route
-// app.get("*", function(req, res) {
-//     res.redirect("/404");
-// });
-
 //start server
-db.sequelize.sync(/*dbSyncOptions*/).then(function() {
+db.sequelize.sync(dbSyncOptions).then(function() {
     app.listen(port, function() {
         console.log("App listening on PORT " + port);
     });

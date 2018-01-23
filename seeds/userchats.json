@@ -1,0 +1,6 @@
+[{"id":2, "chatID":"-L3XTuillh21dPdswRfv", "reciever":2, "createdAt":"2018-01-23 10:06:24", "updatedAt":"2018-01-23 10:06:24", "UserId":1},
+ {"id":3, "chatID":"-L3XTuillh21dPdswRfv", "reciever":1, "createdAt":"2018-01-23 10:06:24", "updatedAt":"2018-01-23 10:06:24", "UserId":2},
+ {"id":4, "chatID":"-L3XUCoD3c-E1wi6z2FQ", "reciever":3, "createdAt":"2018-01-23 10:07:42", "updatedAt":"2018-01-23 10:07:42", "UserId":1},
+ {"id":5, "chatID":"-L3XUCoD3c-E1wi6z2FQ", "reciever":1, "createdAt":"2018-01-23 10:07:42", "updatedAt":"2018-01-23 10:07:42", "UserId":3},
+ {"id":6, "chatID":"-L3XpwgNkrXyZe0IVez0", "reciever":3, "createdAt":"2018-01-23 11:47:01", "updatedAt":"2018-01-23 11:47:01", "UserId":2},
+ {"id":7, "chatID":"-L3XpwgNkrXyZe0IVez0", "reciever":2, "createdAt":"2018-01-23 11:47:01", "updatedAt":"2018-01-23 11:47:01", "UserId":3}]
