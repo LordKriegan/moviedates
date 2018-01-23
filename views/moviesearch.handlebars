@@ -1,12 +1,20 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-12" id="searchResults">
-            <p>movie searcher goes here</p>
+            <div class="input-group">
+                <input id="searchBar" type="text" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn">
+                    <button id="searchBtn" class="btn btn-default" type="button">Go!</button>
+                </span>
+            </div>
+            <h3>Search Results: </h3>
+            <div id="movieSearchBox"></div>
         </div>
     </div>
     <div class="row">
         <div class="col-xs-12">
-            <p>users movies goes here</p>
+            <h3>Your Movies: </h3>
+            <div id="userMovieBox"></div>
         </div>
     </div>
     <div class="row">

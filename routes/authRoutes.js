@@ -35,6 +35,10 @@ module.exports = function(app) {
             gender: req.body.gender,
             location: req.body.location,
             profilePic: req.body.picture
+        }).then(function(response) {
+            res.json({success: true});
+        }).catch(function(error) {
+            res.json({success: false})
         });
     });
 
@@ -47,7 +51,7 @@ module.exports = function(app) {
             if (resp) {
                 var inputHash = getHash(req.body.password, resp.salt);
                 if(inputHash === resp.hash) {
-                    res.json({token: generateJWT(resp)});
+                    res.json({success: true, token: generateJWT(resp)});
                 } else {
                     res.status(400).end("Wrong Password!");
                 }

@@ -1,3 +1,37 @@
 #signUpForm {
     display: none;
 }
+
+#movieSearchBox {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	padding: 10px;
+}
+
+#userMovieBox {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	padding: 10px;
+}
+.moviePosterPic {
+    height: 200px;
+    width: 100px;
+}
+.moviePosterTitle {
+    width: 100px;
+}
+.moviePoster, .userMovie {
+    padding: 10px;
+    display: inline-block;
+    width: min-width;
+}
+
+.moviePoster:hover, .userMovie:hover {
+    box-shadow: 10px 5px 5px rgb(133, 132, 132);
+}

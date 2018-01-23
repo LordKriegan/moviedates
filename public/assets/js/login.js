@@ -51,19 +51,23 @@ window.onload = function () {
                     .post("/api/auth/signup", newUser)
                     .then(function (response) {
                         console.log(response);
+                        if (response.data.success) {
                         axios
-                        .post("/api/auth/login", {
-                            email: newUser.email,
-                            password: newUser.password
-                        })
-                        .then(function (resp) {
-                            console.log(resp);
-                            window.localStorage.setItem("loginToken", resp.data.token);
-                            window.location.href = "/searchmovies";
-                        })
-                        .catch(function (err) {
-                            console.error(err);
-                        });
+                            .post("/api/auth/login", {
+                                email: newUser.email,
+                                password: newUser.password
+                            })
+                            .then(function (resp) {
+                                console.log(resp);
+                                if (resp.data.success) {
+                                    window.localStorage.setItem("loginToken", resp.data.token);
+                                    window.location.href = "/searchmovies";
+                                }
+                            })
+                            .catch(function (err) {
+                                console.error(err);
+                            });
+                        }
                     })
                     .catch(function (error) {
                         console.error(error);
