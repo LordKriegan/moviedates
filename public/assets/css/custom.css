@@ -2,36 +2,35 @@
     display: none;
 }
 
-#movieSearchBox {
+#movieSearchBox, #userMovieBox, #nearbyUsersBox {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
-	padding: 10px;
+    padding: 10px;
+    border-style: none groove groove none;
+	border-width: 5px;
+	border-radius: 25px;
+	border-color: grey;
 }
 
-#userMovieBox {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	justify-content: center;
-	align-items: center;
-	padding: 10px;
-}
-.moviePosterPic {
+.moviePosterPic, .nearbyUserPic {
     height: 200px;
     width: 100px;
 }
-.moviePosterTitle {
+
+.moviePosterTitle, .nearbyUserName {
     width: 100px;
 }
-.moviePoster, .userMovie {
+.moviePoster, .userMovie, .nearbyUser {
     padding: 10px;
     display: inline-block;
     width: min-width;
 }
 
-.moviePoster:hover, .userMovie:hover {
+.moviePoster:hover, .userMovie:hover, .nearbyUser:hover {
     box-shadow: 10px 5px 5px rgb(133, 132, 132);
 }
+
+

@@ -53,7 +53,7 @@ require("./routes/apiRoutes.js")(app);
 // });
 
 //start server
-db.sequelize.sync(dbSyncOptions).then(function() {
+db.sequelize.sync(/*dbSyncOptions*/).then(function() {
     app.listen(port, function() {
         console.log("App listening on PORT " + port);
     });
