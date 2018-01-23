@@ -15,6 +15,7 @@ function generateJWT(user) {
         id: user.id,
         email: user.email,
         location: user.location,
+        profilePic: user.profilePic,
         exp: expire.getTime()/1000
     }, process.env.JWT_SECRET);
 }

@@ -34,6 +34,7 @@
 }
 
 #chatRoomBox, #chatList {
+    padding: 5px;
     border-style: double;
     border-radius: 5%;
     height: 90vh;
@@ -50,11 +51,6 @@
     justify-content: center;
 }
 
-.chatListItem:hover {
-    background-color: #888888;
-    color: #060606;
-}
-
 .chatListPic {
     width: 50px;
     height: 50px;
@@ -63,4 +59,14 @@
 
 .chatListName {
     line-height: 50px
+}
+
+.myChats {
+    display: flex;
+    flex-direction: row;
+}
+
+.theirChats {
+    display: flex;
+    flex-direction: row-reverse;
 }

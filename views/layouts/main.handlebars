@@ -30,6 +30,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="/searchmovies">Search New Movies</a></li>
                     <li><a href="/messages">Messages</a></li>
+                    <li><a href="#" id="logout">Logout</a></li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -37,6 +38,12 @@
         <!-- /.container-fluid -->
     </nav>
  {{{body}}}
+ <script>
+     $("#logout").on("click", function() {
+        window.localStorage.removeItem("loginToken");
+        window.location.href = "/login";
+     });
+ </script>
 </body>
 
 </html>
