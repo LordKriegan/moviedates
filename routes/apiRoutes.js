@@ -3,12 +3,12 @@ var models = require('../models');
 var firebase = require('firebase');
 // Initialize Firebase
 var config = {
-    apiKey: process.env.FBAPIKEY,
-    authDomain: process.env.FBAUTHDOMAIN,
-    databaseURL: process.env.FBDATABASEURL,
-    projectId: process.env.FBPROJECTID,
-    storageBucket: process.env.FBSTORAGEBUCKET,
-    messagingSenderId: process.env.FBMESSAGINGSENDERID
+    apiKey: "AIzaSyCZu2Sj0p2tF2Zs4dSQZqIynXpPNn7SL-Q",
+    authDomain: "movidate-1516684495286.firebaseapp.com",
+    databaseURL: "https://movidate-1516684495286.firebaseio.com",
+    projectId: "movidate-1516684495286",
+    storageBucket: "movidate-1516684495286.appspot.com",
+    messagingSenderId: "29543976787"
 };
 firebase.initializeApp(config);
 fbdb = firebase.database();
