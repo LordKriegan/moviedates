@@ -5,6 +5,9 @@ module.exports = function(app) {
     app.get("/searchmovies", function(req, res) {
         res.render("moviesearch");
     });
+    app.get("/accountsetting", function(req, res) {
+        res.render("accountsetting");
+    });
     app.get("/messages", function(req, res) {
         res.render("messages");
     });
