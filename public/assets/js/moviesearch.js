@@ -50,6 +50,8 @@ window.onload = function () {
         }
     });
 
+
+    //WHen a user clicks on the one of the movie results
     $(document).on("click", ".moviePoster", function() {
         var thisElem = this;
         var data = {
@@ -77,31 +79,47 @@ window.onload = function () {
         });
     });
 
-    $(document).on("click", ".userMovie", function() {
+
+
+    //When a user clicks on a user's desired movie
+    $(".userMovie").mousedown(function(event) {
         var thisElem = this;
-        axios({
-            method: "POST",
-            url: "/api/getnearbyusers",
-            headers: { "Authorization": "Bearer " + loginToken },
-            data: { 
-                movieId: $(thisElem).attr("data-movieId"), 
-                userId: JSON.parse(window.atob(loginToken.split('.')[1])).id,
-                distance: ($("#distance").val() * 1609.34) //1609.34 = meters in a mile, google response has distance in meters
-            }
-        }).then(function(response) {
-            console.log(response);
-            $("#nearbyUsersBox").empty();
-            response.data.forEach(function(elem) {
-                console.log("test", elem);
-                var nearbyUser = $("<div class='text-center nearbyUser' data-userId='" + elem.userId +"'>");
-                $(nearbyUser).append("<img class='nearbyUserPic' src='" + elem.profilePic + "' />");
-                $(nearbyUser).append("<p class='nearbyUserName'>" + elem.email.split("@")[0] + "</p>");
-                $("#nearbyUsersBox").append(nearbyUser);
+        console.log(event.which)
+
+        switch(event.which) {
+
+        case 1:
+            console.log('left mouse clicked')
+            axios({
+                method: "POST",
+                url: "/api/getnearbyusers",
+                headers: { "Authorization": "Bearer " + loginToken },
+                data: { 
+                    movieId: $(thisElem).attr("data-movieId"), 
+                    userId: JSON.parse(window.atob(loginToken.split('.')[1])).id,
+                    distance: ($("#distance").val() * 1609.34) //1609.34 = meters in a mile, google response has distance in meters
+                }
+            }).then(function(response) {
+                console.log(response);
+                $("#nearbyUsersBox").empty();
+                response.data.forEach(function(elem) {
+                    console.log("test", elem);
+                    var nearbyUser = $("<div class='text-center nearbyUser' data-userId='" + elem.userId +"'>");
+                    $(nearbyUser).append("<img class='nearbyUserPic' src='" + elem.profilePic + "' />");
+                    $(nearbyUser).append("<p class='nearbyUserName'>" + elem.email.split("@")[0] + "</p>");
+                    $("#nearbyUsersBox").append(nearbyUser);
+                });
+            }).catch(function(error) {
+                console.error(error);
             });
-        }).catch(function(error) {
-            console.error(error);
-        });
+       
+        case 3:
+            console.log('right mouse clicked')
+            //run the deletion nonsense
+        }
     });
+
+
 
     $(document).on("click", ".nearbyUser", function() {
         var thisElem = this;
