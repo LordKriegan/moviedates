@@ -114,9 +114,19 @@ window.onload = function () {
                 userTwo: $(thisElem).attr("data-userId")
             }
         }).then(function(response) {
+                //When a user clicks on another user, the messages actually show up
+            window.location.href = '/messages'
             console.log(response);
         }).catch(function(error) {
             console.error(error);
         });
     });
+
+
+
+    //Have the ability to press enter to enter for messages and movie searches
+
+
+
+
 }

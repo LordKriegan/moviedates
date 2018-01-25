@@ -127,6 +127,18 @@ module.exports = function (app) {
 
     });
 
+
+
+    
+    //remove user movies
+    //This
+    app.post('/api/removeusermovie',function(req,res){
+
+    })
+
+
+
+
     app.post("/api/getusermovies", function (req, res) {
         models.Movies.findAll({
             where: {

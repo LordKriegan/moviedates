@@ -21,6 +21,9 @@ window.onload = function () {
             headers: { "Authorization": "Bearer " + loginToken },
             data: { userId: JSON.parse(window.atob(loginToken.split('.')[1])).id }
         }).then(function (response) {
+
+
+            //Be able to implement the auto-switch to messaging, if only 1 other user is available
             response.data.forEach(function(elem) {
                 var newDiv = $("<div class='chatListItem' data-chatRef='" + elem.chatID + "'>");
                 $(newDiv).append("<img class='chatListPic' src='" + elem.profilePic + "' />");
@@ -61,6 +64,7 @@ window.onload = function () {
             console.log("The read failed: " + errorObject.code);
         });
     });
+
 
     $("#textBarBtn").on("click", function(e) {
         e.preventDefault();
