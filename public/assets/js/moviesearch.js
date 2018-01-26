@@ -111,6 +111,21 @@ window.onload = function () {
         }
         else {
             // delete this movie 
+            axios({
+                method: "DELETE",
+                url: "/api/removeusermovie",
+                headers: { "Authorization": "Bearer " + loginToken },
+                data: {
+                    UserId: JSON.parse(window.atob(loginToken.split('.')[1])).id,
+                    movieId: $(thisElem).attr("data-movieId")
+                }
+            })
+                .then(function (response) {
+                    console.log(response);
+                    $(thisElem).remove();
+                }).catch(function (error) {
+                    console.error(error);
+                });
         }
     });
 
