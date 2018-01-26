@@ -12,28 +12,7 @@ fbdb = firebase.database();
 var currentChat;
 window.onload = function () {
     loginToken = window.localStorage.getItem("loginToken")
-    if (!loginToken) {
-        window.location.href = "/login";
-    } else {
-        axios({
-            method: "POST",
-            url: "/api/getchatlist",
-            headers: { "Authorization": "Bearer " + loginToken },
-            data: { userId: JSON.parse(window.atob(loginToken.split('.')[1])).id }
-        }).then(function (response) {
-
-
-            //Be able to implement the auto-switch to messaging, if only 1 other user is available
-            response.data.forEach(function(elem) {
-                var newDiv = $("<div class='chatListItem' data-chatRef='" + elem.chatID + "'>");
-                $(newDiv).append("<img class='chatListPic' src='" + elem.profilePic + "' />");
-                $(newDiv).append("<span class='chatListName'>" + elem.reciever +"</span>");
-                $("#chatList").append(newDiv);
-            });
-        }).catch(function (error) {
-            console.error(error)
-        })
-    }
+    
 
     $(document).on("click", ".chatListItem", function() {
         $("#chatList > .chatListItem").css("background-color", "#060606");
@@ -76,4 +55,46 @@ window.onload = function () {
             })
         }
     }); 
+
+
+    $("#textBar").keyup(function (e) {
+        if (e.keyCode === 13) {
+            console.log("IT'S WORKING!")
+            $("#textBarBtn").trigger("click");
+        }
+    });
+
+
+    if (!loginToken) {
+        window.location.href = "/login";
+    } else {
+        axios({
+            method: "POST",
+            url: "/api/getchatlist",
+            headers: { "Authorization": "Bearer " + loginToken },
+            data: { userId: JSON.parse(window.atob(loginToken.split('.')[1])).id }
+        }).then(function (response) {
+
+
+            
+            //Be able to implement the auto-switch to messaging, if only 1 other user is available
+            response.data.forEach(function(elem) {
+                var newDiv = $("<div class='chatListItem' data-chatRef='" + elem.chatID + "'>");
+                $(newDiv).append("<img class='chatListPic' src='" + elem.profilePic + "' />");
+                $(newDiv).append("<span class='chatListName'>" + elem.reciever +"</span>");
+                $("#chatList").append(newDiv);
+            });
+
+            var chatListItem = $('#chatList').children()[0]
+            console.log(chatListItem)
+            if (chatListItem){
+                $(chatListItem).trigger('click');
+
+            }
+
+        }).catch(function (error) {
+            console.error(error)
+        })
+    }
+
 };
