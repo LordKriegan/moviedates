@@ -4,6 +4,7 @@ var exphbs = require('express-handlebars');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var jwt = require("express-jwt");
+var sslRedirect = require('heroku-ssl-redirect');
 
 //setup dev environment
 var dbSyncOptions = { force: false }
@@ -27,6 +28,10 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 //setup logger
 app.use(morgan("dev"));
+
+//force https
+app.use(sslRedirect());
+
 //setup handlebars
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
