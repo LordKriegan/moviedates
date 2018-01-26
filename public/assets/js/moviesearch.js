@@ -8,15 +8,15 @@ window.onload = function () {
             url: "/api/getusermovies",
             headers: { "Authorization": "Bearer " + loginToken },
             data: { userId: JSON.parse(window.atob(loginToken.split('.')[1])).id }
-        }).then(function(response) {
-            response.data.forEach(function(elem) {
+        }).then(function (response) {
+            response.data.forEach(function (elem) {
                 var newMovie = $("<div class='text-center userMovie' data-movieId='" + elem.movieId + "'>");
-                var newMoviePic = $("<img class='moviePosterPic' src='" + elem.moviePoster +"'/>");
+                var newMoviePic = $("<img class='moviePosterPic' src='" + elem.moviePoster + "'/>");
                 $(newMovie).append(newMoviePic);
                 $(newMovie).append("<p class='moviePosterTitle'>" + elem.movieTitle + "</p>");
                 $("#userMovieBox").append(newMovie);
             });
-        }).catch(function(error) {
+        }).catch(function (error) {
             console.error(error);
         });
     }
@@ -49,10 +49,14 @@ window.onload = function () {
             });
         }
     });
+    $("#searchBar").keyup(function (e) {
+        if (e.keyCode === 13) {
+            console.log("IT'S WORKING!")
+            $("#searchBtn").trigger("click");
+        }
+    });
 
-
-    //WHen a user clicks on the one of the movie results
-    $(document).on("click", ".moviePoster", function() {
+    $(document).on("click", ".moviePoster", function () {
         var thisElem = this;
         var data = {
             userId: JSON.parse(window.atob(loginToken.split('.')[1])).id,
@@ -66,7 +70,7 @@ window.onload = function () {
             url: "/api/addusermovie",
             headers: { "Authorization": "Bearer " + loginToken },
             data: data
-        }).then(function(response) {
+        }).then(function (response) {
             console.log(response);
             if (response.data.success) {
                 var newUserMovie = $(thisElem).clone();
@@ -74,76 +78,43 @@ window.onload = function () {
                 $(newUserMovie).addClass("userMovie");
                 $("#userMovieBox").append(newUserMovie);
             }
-        }).catch(function(error) {
+        }).catch(function (error) {
             console.error(error);
         });
     });
 
-
-
-    //When a user clicks on a user's desired movie
-    $(".userMovie").on('click',function(event) {
+    $(document).on("click", ".userMovie", function (e) {
         var thisElem = this;
-        event.preventDefault()
-        console.log(event.which)
-
-        console.log('Shift key pressed:' + event.shiftkey)
-
-        if(event.shiftkey) {
-
-            console.log('left mouse clicked')
+        if (!e.shiftKey) {
             axios({
                 method: "POST",
                 url: "/api/getnearbyusers",
                 headers: { "Authorization": "Bearer " + loginToken },
-                data: { 
-                    movieId: $(thisElem).attr("data-movieId"), 
+                data: {
+                    movieId: $(thisElem).attr("data-movieId"),
                     userId: JSON.parse(window.atob(loginToken.split('.')[1])).id,
                     distance: ($("#distance").val() * 1609.34) //1609.34 = meters in a mile, google response has distance in meters
                 }
-            }).then(function(response) {
+            }).then(function (response) {
                 console.log(response);
                 $("#nearbyUsersBox").empty();
-                response.data.forEach(function(elem) {
+                response.data.forEach(function (elem) {
                     console.log("test", elem);
-                    var nearbyUser = $("<div class='text-center nearbyUser' data-userId='" + elem.userId +"'>");
+                    var nearbyUser = $("<div class='text-center nearbyUser' data-userId='" + elem.userId + "'>");
                     $(nearbyUser).append("<img class='nearbyUserPic' src='" + elem.profilePic + "' />");
                     $(nearbyUser).append("<p class='nearbyUserName'>" + elem.email.split("@")[0] + "</p>");
                     $("#nearbyUsersBox").append(nearbyUser);
                 });
-            }).catch(function(error) {
+            }).catch(function (error) {
                 console.error(error);
             });
         }
         else {
-            console.log('shift key not pressed')
-            //run the deletion nonsense
-
-            axios({
-                method: 'DELETE',
-                url: '/api/removeusermovie',
-                headers: { "Authorization": "Bearer " + loginToken },
-                data: { 
-                    movieId: $(thisElem).attr("data-movieId"), 
-                    userId: JSON.parse(window.atob(loginToken.split('.')[1])).id,
-                    distance: ($("#distance").val() * 1609.34) //1609.34 = meters in a mile, google response has distance in meters
-                    //userId and distance likely unnecessary.
-                    //THe api call may be totally unnessary. It could likely be done with by just removing the element.
-                }
-            }).then(function(response){
-                console.log(response)
-                //
-            }
-
-            ).catch(function(error){
-
-            })
+            // delete this movie 
         }
     });
 
-
-
-    $(document).on("click", ".nearbyUser", function() {
+    $(document).on("click", ".nearbyUser", function () {
         var thisElem = this;
         axios({
             method: "POST",
@@ -153,20 +124,10 @@ window.onload = function () {
                 userOne: JSON.parse(window.atob(loginToken.split('.')[1])).id,
                 userTwo: $(thisElem).attr("data-userId")
             }
-        }).then(function(response) {
-                //When a user clicks on another user, the messages actually show up
-            window.location.href = '/messages'
+        }).then(function (response) {
             console.log(response);
-        }).catch(function(error) {
+        }).catch(function (error) {
             console.error(error);
         });
     });
-
-
-
-    //Have the ability to press enter to enter for messages and movie searches
-
-
-
-
 }

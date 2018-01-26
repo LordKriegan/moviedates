@@ -8,6 +8,7 @@
     "start": "node server.js",
     "devstart": "set NODE_ENV=development && nodemon ./server.js",
     "devstartubuntu": "export NODE_ENV=development; node ./server.js"
+    "devstartMac": "NODE_ENV=development nodemon ./server.js"
   },
   "author": "",
   "license": "ISC",
