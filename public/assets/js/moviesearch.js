@@ -140,6 +140,7 @@ window.onload = function () {
                 userTwo: $(thisElem).attr("data-userId")
             }
         }).then(function (response) {
+            window.location.href = '/messages';
             console.log(response);
         }).catch(function (error) {
             console.error(error);
