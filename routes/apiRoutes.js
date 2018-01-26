@@ -127,6 +127,26 @@ module.exports = function (app) {
 
     });
 
+
+
+    
+    //remove user movies
+    //This
+    app.delete('/api/removeusermovie',function(req,res){
+        models.Movies.destroy({
+            where : {
+                UserId: req.body.UserId,
+                movieId: req.body.moveId;
+            }
+        })
+        .then(function(dbData){
+            console.log(dbData)
+        })
+    })
+
+
+
+
     app.post("/api/getusermovies", function (req, res) {
         models.Movies.findAll({
             where: {
