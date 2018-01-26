@@ -82,13 +82,15 @@ window.onload = function () {
 
 
     //When a user clicks on a user's desired movie
-    $(".userMovie").mousedown(function(event) {
+    $(".userMovie").on('click',function(event) {
         var thisElem = this;
+        event.preventDefault()
         console.log(event.which)
 
-        switch(event.which) {
+        console.log('Shift key pressed:' + event.shiftkey)
 
-        case 1:
+        if(event.shiftkey) {
+
             console.log('left mouse clicked')
             axios({
                 method: "POST",
@@ -112,10 +114,30 @@ window.onload = function () {
             }).catch(function(error) {
                 console.error(error);
             });
-       
-        case 3:
-            console.log('right mouse clicked')
+        }
+        else {
+            console.log('shift key not pressed')
             //run the deletion nonsense
+
+            axios({
+                method: 'DELETE',
+                url: '/api/removeusermovie',
+                headers: { "Authorization": "Bearer " + loginToken },
+                data: { 
+                    movieId: $(thisElem).attr("data-movieId"), 
+                    userId: JSON.parse(window.atob(loginToken.split('.')[1])).id,
+                    distance: ($("#distance").val() * 1609.34) //1609.34 = meters in a mile, google response has distance in meters
+                    //userId and distance likely unnecessary.
+                    //THe api call may be totally unnessary. It could likely be done with by just removing the element.
+                }
+            }).then(function(response){
+                console.log(response)
+                //
+            }
+
+            ).catch(function(error){
+
+            })
         }
     });
 
