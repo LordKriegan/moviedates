@@ -47,11 +47,14 @@ window.onload = function () {
 
     $("#textBarBtn").on("click", function(e) {
         e.preventDefault();
-        if (currentChat) {
+        if (currentChat && $("#textBar").val().trim()) {
             fbdb.ref("chatrooms/" + currentChat).push({
                 name: JSON.parse(window.atob(loginToken.split('.')[1])).email.split("@")[0],
                 msg: $("#textBar").val().trim(),
                 profilePic: JSON.parse(window.atob(loginToken.split('.')[1])).profilePic
+            })
+            .then (function (response){
+                $("#textBar").val("");
             })
         }
     }); 
