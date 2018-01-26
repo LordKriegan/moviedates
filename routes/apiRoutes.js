@@ -134,13 +134,14 @@ module.exports = function (app) {
     //This
     app.delete('/api/removeusermovie',function(req,res){
         models.Movies.destroy({
-            where : {
+            where: {
                 UserId: req.body.UserId,
-                movieId: req.body.moveId
+                movieId: req.body.movieId
             }
         })
         .then(function(dbData){
             console.log(dbData)
+            res.json({success: true});
         })
     })
 
