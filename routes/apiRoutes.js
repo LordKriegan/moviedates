@@ -136,7 +136,7 @@ module.exports = function (app) {
         models.Movies.destroy({
             where : {
                 UserId: req.body.UserId,
-                movieId: req.body.moveId;
+                movieId: req.body.moveId
             }
         })
         .then(function(dbData){
